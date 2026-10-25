@@ -1,0 +1,37 @@
+
+import numpy as np
+
+np.random.seed(1)
+
+X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+y = np.array([[0], [1], [1], [0]])
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def dsigmoid(x):
+    return x * (1 - x)
+
+W1 = np.random.randn(2, 4)
+W2 = np.random.randn(4, 1)
+lr = 0.5
+
+for epoch in range(20000):
+    h = sigmoid(X @ W1)
+    out = sigmoid(h @ W2)
+
+    error = y - out
+    d2 = error * dsigmoid(out)
+    d1 = (d2 @ W2.T) * dsigmoid(h)
+
+    W2 += lr * h.T @ d2
+    W1 += lr * X.T @ d1
+
+print("Predicted Output:")
+print(np.round(sigmoid(sigmoid(X @ W1) @ W2)))
+final output 
+Predicted Output:
+[[0.]
+ [1.]
+ [1.]
+ [0.]]
