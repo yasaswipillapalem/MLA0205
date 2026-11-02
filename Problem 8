@@ -1,0 +1,27 @@
+from sklearn.linear_model import LinearRegression
+
+# Training data
+X = [[1], [2], [3], [4], [5]]
+y = [2, 4, 6, 8, 10]
+
+# Create Linear Regression model
+model = LinearRegression()
+
+# Train the model
+model.fit(X, y)
+
+# Test data
+test = [[6]]
+
+# Prediction
+result = model.predict(test)
+
+print("Test Data:", test)
+print("Predicted Value:", result[0])
+print("Slope:", model.coef_[0])
+print("Intercept:", model.intercept_)
+final output 
+Test Data: [[6]]
+Predicted Value: 12.0
+Slope: 2.0
+Intercept: 0.0
