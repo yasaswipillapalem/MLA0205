@@ -1,0 +1,34 @@
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+
+data = {
+    'Income': [20000, 30000, 40000, 50000, 60000, 70000],
+    'Debt': [15000, 20000, 10000, 15000, 10000, 5000],
+    'Score': ['Low', 'Low', 'Medium',
+              'Medium', 'High', 'High']
+}
+
+df = pd.DataFrame(data)
+
+X = df[['Income', 'Debt']]
+y = df['Score']
+
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X, y)
+
+test = pd.DataFrame({
+    'Income': [65000],
+    'Debt': [8000]
+})
+
+prediction = model.predict(test)
+
+print("Credit Score Classification")
+print("Income:", 65000)
+print("Debt:", 8000)
+print("Predicted Credit Score:", prediction[0])
+final output 
+Credit Score Classification
+Income: 65000
+Debt: 8000
+Predicted Credit Score: High
