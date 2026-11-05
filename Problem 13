@@ -1,0 +1,30 @@
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+
+data = {
+    'Age': [1, 2, 3, 4, 5, 6, 7, 8],
+    'KM': [10000, 20000, 30000, 40000,
+           50000, 60000, 70000, 80000],
+    'Price': [900000, 800000, 700000, 600000,
+              500000, 400000, 300000, 200000]
+}
+
+df = pd.DataFrame(data)
+
+X = df[['Age', 'KM']]
+y = df['Price']
+
+model = LinearRegression()
+model.fit(X, y)
+
+prediction = model.predict([[3, 30000]])
+
+print("Car Price Prediction")
+print("Car Age: 3 years")
+print("Kilometers: 30000")
+print("Predicted Price: Rs.", prediction[0])
+final output 
+Car Price Prediction
+Car Age: 3 years
+Kilometers: 30000
+Predicted Price: Rs. 700000.0
