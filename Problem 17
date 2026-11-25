@@ -1,0 +1,60 @@
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# Create mobile dataset
+data = {
+    'RAM': [2, 3, 4, 6, 8, 12, 2, 4, 6, 8],
+    'Battery': [2000, 2500, 3000, 3500, 4000,
+                5000, 2100, 3200, 3800, 4500],
+    'Camera': [5, 8, 12, 16, 20, 48, 5, 13, 18, 32],
+    'Storage': [16, 32, 64, 64, 128, 256, 16, 64, 128, 256],
+    'Price_Range': [0, 0, 1, 1, 2, 3, 0, 1, 2, 3]
+}
+
+df = pd.DataFrame(data)
+
+# Split features and target
+X = df.drop('Price_Range', axis=1)
+y = df['Price_Range']
+
+# Split dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Train Random Forest model
+model = RandomForestClassifier(
+    n_estimators=100, random_state=42
+)
+model.fit(X_train, y_train)
+
+# Predict
+y_pred = model.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred) * 100)
+
+# Predict price range for a new mobile
+new_mobile = pd.DataFrame(
+    [[8, 4500, 32, 128]],
+    columns=['RAM', 'Battery', 'Camera', 'Storage']
+)
+
+prediction = model.predict(new_mobile)
+
+print("Predicted Mobile Price Range:", prediction[0])
+
+price_ranges = {
+    0: "Low Cost",
+    1: "Medium Cost",
+    2: "High Cost",
+    3: "Very High Cost"
+}
+
+print("Price Category:", price_ranges[prediction[0]])
+final output 
+Accuracy: 100.0
+Predicted Mobile Price Range: 2
+Price Category: High Cost
